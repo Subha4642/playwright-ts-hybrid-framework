@@ -15,6 +15,11 @@ export class ProfilePage {
         this.usernameField = page.locator("#username");
     }
 
+    async profilePageLoad(){
+        await this.page.goto(`${process.env.BASE_URL!}/profile.html`);
+        await this.page.waitForLoadState('networkidle');
+    }
+
     async verifyWelcome(username: string){
         const welcomeName = new RegExp(`^Welcome back,\\s*${username}$`);
         await expect(this.welcomeText).toHaveText(welcomeName);
